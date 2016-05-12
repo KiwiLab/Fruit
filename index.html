@@ -4,7 +4,6 @@
   <title>Slate Example Configuration</title>
   <link rel='stylesheet' type='text/css' href='css/slate.min.css'>
   <script src='js/slate.min.js'></script>
-  <meta charset="utf-8">
   <style>
   .title {
     padding: 15px 10px;
@@ -19,33 +18,67 @@
   </head>
 
   <body>
-    <h1 class='title'>Orange wachface</h1>
+    <h1 class='title'>Slate Example Configuration</h1>
 
     <div class='item-container'>
-      <div class='item-container-header'>Analog</div>
+      <div class='item-container-content'>
+        <div class='item'>
+          Use this configuration page to choose the settings you would like applied to this app.
+        </div>
+      </div>
+    </div>
+
+    <div class='item-container'>
+      <div class='item-container-header'>Customizability</div>
       <div class='item-container-content'>
         <label class='item'>
-          On analog hand
-          <input id='analog_id' type='checkbox' class='item-toggle'>
+          Background Color
+          <input id='background_color_picker' type='text' class='item-color item-color-sunny' value='#000000'>
         </label>
       </div>
       <div class='item-container-footer'>
-        On analog hand
+        Choose the app's background color. Used if High Contrast Mode is not selected. Note: Only available on Basalt watches that support many colors.
+      </div>
+    </div>
+
+    <div class='item-container'>
+      <div class='item-container-header'>Accessibility</div>
+      <div class='item-container-content'>
+        <label class='item'>
+          High Contrast Mode
+          <input id='high_contrast_checkbox' type='checkbox' class='item-toggle'>
+        </label>
+      </div>
+      <div class='item-container-footer'>
+        This switches the app colors to a higher contrast set that promotes readability in low light.
       </div>
     </div>
     
-    <div class='item-container'>
-      <div class='item-container-header'>Second</div>
-      <div class='item-container-content'>
-        <label class='item'>
-          On seconds
-          <input id='second_id' type='checkbox' class='item-toggle'>
-        </label>
+    <div class="item-container">
+  <div class="item-container-header">Input Field + Send Button</div>
+  <div class="item-container-content">
+    <label class="item">
+      <div class="item-input-wrapper item-input-wrapper-button">
+        <input id='textfield' type='text' class='item-input' name='input-2' placeholder='Input field'>
       </div>
-      <div class='item-container-footer'>
-        On seconds
-      </div>
-    </div>
+    </label>
+  </div>
+</div>
+
+
+<div class="item-container">
+  <div class="item-container-header">Multiple Items</div>
+  <div class="item-container-content">
+    <label class="item">
+      Example Item
+      <select id='select_id' name="select-1" dir='rtl' class="item-select">
+        <option class="item-select-option" selected>One</option>
+        <option class="item-select-option">Two</option>
+        <option class="item-select-option">Three</option>
+      </select>
+    </label>
+  </div>
+</div>
 
     <div class='item-container'>
       <div class='button-container'>
@@ -55,17 +88,23 @@
   </body>
   <script>
   function getConfigData() {
-    var analog = document.getElementById('analog_id');
-    var second = document.getElementById('second_id');
+    var backgroundColorPicker = document.getElementById('background_color_picker');
+    var highContrastCheckbox = document.getElementById('high_contrast_checkbox');
+    var textfieldObj = document.getElementById('textfield');
+    var selectObj = document.getElementById('select_id');
  
     var options = {
-      'analog_set': analog.checked,
-      'second_set': second.checked
+      'background_color': backgroundColorPicker.value,
+      'high_contrast': highContrastCheckbox.checked,
+      'text_field': textfieldObj.value,
+      'select': selectObj.value
     };
 
     // Save for next launch
-    localStorage['analog_save'] = options['analog_set'];
-    localStorage['second_save'] = options['second_set'];
+    localStorage['background_color'] = options['background_color'];
+    localStorage['high_contrast'] = options['high_contrast'];
+    localStorage['text_field'] = options['text_field'];
+    localStorage['select'] = options['select'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -93,13 +132,16 @@
   });
 
   (function() {
-    var analog = document.getElementById('analog_id');
-    var second = document.getElementById('second_id');
-
+    var backgroundColorPicker = document.getElementById('background_color_picker');
+    var highContrastCheckbox = document.getElementById('high_contrast_checkbox');
+	var textfieldObj = document.getElementById('textfield');
+	var selectObj = document.getElementById('select_id');
     // Load any previously saved configuration, if available
-    if(localStorage['analog_save']) {
-      //analog.checked = JSON.parse(localStorage['analog_save']);
-      //second.checked = JSON.parse(localStorage['second_save'];
+    if(localStorage['high_contrast']) {
+      highContrastCheckbox.checked = JSON.parse(localStorage['high_contrast']);
+      backgroundColorPicker.value = localStorage['background_color'];
+      textfieldObj.value  = localStorage['text_field'];
+      selectObj.value  = localStorage['select'];
     }
   })();
   </script>
