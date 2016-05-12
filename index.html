@@ -35,6 +35,44 @@
     </div>
     
     <div class='item-container'>
+      <div class='item-container-header'>Customizability</div>
+      <div class='item-container-content'>
+        <label class='item'>
+          Label Color
+          <input id='color_label_id' type='text' class='item-color item-color-sunny' value='#000000'>
+        </label>
+      </div>
+      <div class='item-container-footer'>
+        Choose the app's background color. Used if High Contrast Mode is not selected. Note: Only available on Basalt watches that support many colors.
+      </div>
+    </div>
+    
+    <div class='item-container'>
+      <div class='item-container-header'>Customizability</div>
+      <div class='item-container-content'>
+        <label class='item'>
+          Hour Color
+          <input id='color_hour_id' type='text' class='item-color item-color-sunny' value='#000000'>
+        </label>
+      </div>
+      <div class='item-container-content'>
+        <label class='item'>
+          Minute Color
+          <input id='color_minute_id' type='text' class='item-color item-color-sunny' value='#000000'>
+        </label>
+      </div>
+      <div class='item-container-content'>
+        <label class='item'>
+          Second Color
+          <input id='color_second_id' type='text' class='item-color item-color-sunny' value='#000000'>
+        </label>
+      </div>
+      <div class='item-container-footer'>
+        Choose the app's background color. Used if High Contrast Mode is not selected. Note: Only available on Basalt watches that support many colors.
+      </div>
+    </div>
+    
+    <div class='item-container'>
       <div class='item-container-header'>Accessibility</div>
       <div class='item-container-content'>
         <label class='item'>
@@ -57,15 +95,27 @@
   function getConfigData() {
     var analog = document.getElementById('analog_id');
     var second = document.getElementById('second_id');
+    var color_label = document.getElementById('color_label_id');
+    var color_hour = document.getElementById('color_hour_id');
+    var color_minute = document.getElementById('color_minute_id');
+    var color_second = document.getElementById('color_second_id');
  
     var options = {
       'analog_set': analog.checked,
-      'second_set': second.checked
+      'second_set': second.checked,
+      'color_label_set': color_label.value,
+      'color_hour_set': color_hour.value,
+      'color_minute_set': color_minute.value,
+      'color_second_set': color_second.value
     };
 
     // Save for next launch
     localStorage['analog_save'] = options['analog_set'];
     localStorage['second_save'] = options['second_set'];
+    localStorage['color_label_save'] = options['color_label_set'];
+    localStorage['color_hour_save'] = options['color_hour_set'];
+    localStorage['color_minute_save'] = options['color_minute_set'];
+    localStorage['color_second_save'] = options['color_second_set'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -95,11 +145,19 @@
   (function() {
     var analog = document.getElementById('analog_id');
     var second = document.getElementById('second_id');
+    var color_label = document.getElementById('color_label_id');
+    var color_hour = document.getElementById('color_hour_id');
+    var color_minute = document.getElementById('color_minute_id');
+    var color_second = document.getElementById('color_second_id');
 
     // Load any previously saved configuration, if available
     if(localStorage['analog_save']) {
       analog.checked = JSON.parse(localStorage['analog_save']);
       second.checked = JSON.parse(localStorage['second_save']);
+   	color_label.value = localStorage['color_label_save'];
+    color_hour.value = localStorage['color_hour_save'];
+    color_minute.value = localStorage['color_minute_save'];
+    color_second.value = localStorage['color_second_save'];
     }
   })();
   </script>
