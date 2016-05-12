@@ -59,13 +59,13 @@
     var second = document.getElementById('second_id');
  
     var options = {
-      'analog_save': analog.checked,
-      'second_save': second.checked
+      'analog_set': analog.checked,
+      'second_set': second.checked
     };
 
     // Save for next launch
-    localStorage['analog_save'] = options['analog_id'];
-    localStorage['second_save'] = options['second_id'];
+    localStorage['analog_save'] = options['analog_set'];
+    localStorage['second_save'] = options['second_set'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
